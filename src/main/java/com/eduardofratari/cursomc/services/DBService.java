@@ -20,6 +20,7 @@ import com.eduardofratari.cursomc.domain.PagamentoComCartao;
 import com.eduardofratari.cursomc.domain.Pedido;
 import com.eduardofratari.cursomc.domain.Produto;
 import com.eduardofratari.cursomc.domain.enums.EstadoPagamento;
+import com.eduardofratari.cursomc.domain.enums.Perfil;
 import com.eduardofratari.cursomc.domain.enums.TipoCliente;
 import com.eduardofratari.cursomc.repositories.CategoriaRepository;
 import com.eduardofratari.cursomc.repositories.CidadeRepository;
@@ -120,10 +121,17 @@ public class DBService {
 		// Cliente e endereco
 		Cliente cli1 = new Cliente(null, "Maria Silva", "edufratari.dev@gmail.com", "36378912377", TipoCliente.PESSOA_FISICA, passwordEncoder.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+		
+		Cliente cli2 = new Cliente(null, "Ana Costa", "edufratari@gmail.com", "69920590096", TipoCliente.PESSOA_FISICA, passwordEncoder.encode("123"));
+		cli2.getTelefones().addAll(Arrays.asList("32616895", "996651239"));
+		cli2.addPerfil(Perfil.ADMIN);
 
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		Endereco e3 = new Endereco(null, "Avenida Floriano Peixoto", "2106", null, "Centro", "38377012", cli2, c2);
+
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
 
 		// Pedido e Pagamento
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -157,8 +165,8 @@ public class DBService {
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
